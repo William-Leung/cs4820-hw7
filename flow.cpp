@@ -312,10 +312,16 @@ void DFS(uint64_t v, FlowResults net, unordered_map<int, bool> &visited)
   }
 }
 
+#include <chrono>
+using namespace std::chrono;
+
 int main()
 {
-  bool debug = false;
-  ifstream infile("input.txt");
+  bool debug = true;
+
+  auto start = high_resolution_clock::now();
+
+  ifstream infile("zeroprofit.txt");
 
   int n, m, p;
 
@@ -336,7 +342,7 @@ int main()
       int sales_volume = 0;
       infile >> sales_volume;
       edges.push_back(Arc(0, i, p * sales_volume));
-      cout << "s-stall edge: (0, " << i << ", " << p * sales_volume << ")" << endl;
+      // cout << "s-stall edge: (0, " << i << ", " << p * sales_volume << ")" << endl;
     }
     /** m inputs: u v c corresponds to street i
         effect: creates m edges (u,i,inf) from stall u to street i
@@ -350,9 +356,9 @@ int main()
       edges.push_back(Arc(v, i, infinity));
       edges.push_back(Arc(i, n + m + 1, cleaning_cost));
 
-      cout << "stall-street edge: (" << u << ", " << i << ", " << infinity << ")" << endl;
+      /**cout << "stall-street edge: (" << u << ", " << i << ", " << infinity << ")" << endl;
       cout << "stall-street edge: (" << v << ", " << i << ", " << infinity << ")" << endl;
-      cout << "street-t edge: (" << i << ", " << (n + m + 1) << ", " << cleaning_cost << ")" << endl;
+      cout << "street-t edge: (" << i << ", " << (n + m + 1) << ", " << cleaning_cost << ")" << endl;*/
     }
   }
   else
@@ -411,7 +417,7 @@ int main()
     cout << profit << " " << num_visited << endl;
     for (int i = 0; i < visited.size() && i <= n; i++)
     {
-      if (visited[i] )
+      if (visited[i])
       {
         if (first)
         {
@@ -426,5 +432,11 @@ int main()
   else
     cout << "0" << endl
          << endl;
+
+  auto stop = high_resolution_clock::now();
+  auto duration = duration_cast<microseconds>(stop - start);
+  cout << "Time taken by function: "
+       << duration.count() / 1000000.0 << " seconds" << endl;
+
   return 0;
 }

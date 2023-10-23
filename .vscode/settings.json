@@ -61,6 +61,8 @@
     "unordered_map": "cpp",
     "version": "cpp",
     "__hash_table": "cpp",
-    "functional": "cpp"
+    "functional": "cpp",
+    "chrono": "cpp",
+    "ostream": "cpp"
   }
 }

@@ -298,13 +298,15 @@ flow_network::FlowResults flow_network::FlowNetwork::dinic()
 using namespace flow_network;
 using namespace std;
 
-void DFS(uint64_t v, FlowResults net, unordered_map<int,bool> visited) {
+void DFS(uint64_t v, FlowResults net, unordered_map<int, bool> &visited)
+{
   visited[v] = true;
-  cout << "visited: " << v << endl;
-  for (int i = 0; i < net.graph[v].size(); i++) {
+  for (int i = 0; i < net.graph[v].size(); i++)
+  {
     uint64_t idx = net.graph[v][i];
     uint64_t w = net.dest[idx];
-    if (!visited[w] && net.res_cap[idx] > 0) {
+    if (!visited[w] && net.res_cap[idx] > 0)
+    {
       DFS(w, net, visited);
     }
   }
@@ -312,7 +314,7 @@ void DFS(uint64_t v, FlowResults net, unordered_map<int,bool> visited) {
 
 int main()
 {
-  bool debug = true;
+  bool debug = false;
   ifstream infile("input.txt");
 
   int n, m, p;
@@ -377,18 +379,52 @@ int main()
 
   // hash map between vertices and their visited status
   unordered_map<int, bool> visited;
+  // initialize everyone visited to false
+  for (int i = 0; i < n + m + 2; i++)
+  {
+    visited[i] = false;
+  }
+  // DFS from source
   DFS(0, flow, visited);
 
-  cout << "Max Flow: " << flow.max_flow << endl;
-
-  for (int i = 0; i < flow.res_cap.size(); i++)
+  // source node should not be part of minimum cut
+  visited[0] = false;
+  int profit = 0;
+  int num_visited = 0;
+  // iterate through edges to find profit
+  for (int i = 0; i < edges.size(); i++)
   {
-    cout << "res_cap[" << i << "]: " << flow.res_cap[i] << endl;
-  }
-  for (int i = 0; i < flow.dest.size(); i++)
-  {
-    cout << "dest[" << i << "]: " << flow.dest[i] << endl;
+    if (edges[i].u == 0 && visited[edges[i].v])
+    {
+      profit += edges[i].c;
+      num_visited++;
+    }
+    else if (edges[i].v == n + m + 1 && visited[edges[i].u])
+    {
+      profit -= edges[i].c;
+    }
   }
 
+  bool first = true;
+  if (profit > 0)
+  {
+    cout << profit << " " << num_visited << endl;
+    for (int i = 0; i < visited.size() && i <= n; i++)
+    {
+      if (visited[i] )
+      {
+        if (first)
+        {
+          cout << i;
+          first = false;
+        }
+        else
+          cout << " " << i;
+      }
+    }
+  }
+  else
+    cout << "0" << endl
+         << endl;
   return 0;
 }

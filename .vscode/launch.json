@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/williamleung/Documents/GitHub/cs4820-hw7",
+      "program": "/Users/williamleung/Documents/GitHub/cs4820-hw7/build/Debug/outDebug"
+    }
+  ]
+}

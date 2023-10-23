@@ -1,0 +1,13 @@
+{
+  "configurations": [
+    {
+      "name": "macos-clang-x64",
+      "includePath": ["${workspaceFolder}/**"],
+      "cStandard": "gnu17",
+      "cppStandard": "gnu++17",
+      "intelliSenseMode": "macos-clang-x64",
+      "compilerArgs": [""]
+    }
+  ],
+  "version": 4
+}

@@ -312,16 +312,11 @@ void DFS(uint64_t v, FlowResults net, unordered_map<int, bool> &visited)
   }
 }
 
-#include <chrono>
-using namespace std::chrono;
-
 int main()
 {
   bool debug = true;
 
-  auto start = high_resolution_clock::now();
-
-  ifstream infile("zeroprofit.txt");
+  ifstream infile("input.txt");
 
   int n, m, p;
 
@@ -430,13 +425,8 @@ int main()
     }
   }
   else
-    cout << "0" << endl
+    cout << "0 0" << endl
          << endl;
-
-  auto stop = high_resolution_clock::now();
-  auto duration = duration_cast<microseconds>(stop - start);
-  cout << "Time taken by function: "
-       << duration.count() / 1000000.0 << " seconds" << endl;
 
   return 0;
 }
